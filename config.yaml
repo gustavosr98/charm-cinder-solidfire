@@ -1,0 +1,60 @@
+options:
+  volume-backend-name:
+    type: string
+    default: cinder_solidfire
+    description: Service name to present to Cinder
+  san-ip:
+    type: string
+    default: !!null ""
+    description: IP address of SAN controller
+  san-login:
+    type: string
+    default: sfadmin
+    description: Username for SAN controller
+  san-password:
+    type: string
+    default: sfpassword
+    description: Password for SAN controller  
+  allow-template-caching:
+    type: boolean
+    description: |
+        Create an internal cache of copy of images when a bootable volume is
+        created to eliminate fetch from glance and qemu-conversion on
+        subsequent calls.
+  allow-tenant-qos:
+    type: boolean
+    description: Allow tenants to specify QOS on create
+  api-port:
+    type: int
+    description: |
+        SolidFire API port. Useful if the device api is behind a proxy on
+        a different port.
+  emulate-512:
+    type: boolean
+    description: Set 512 byte emulation on volume creation
+  enable-vag:
+    type: boolean
+    description: Utilize volume access groups on a per-tenant basis.
+  enable-volume-mapping:
+    type: boolean
+    description: |
+        Create an internal mapping of volume IDs and account. Optimizes lookups
+        and performance at the expense of memory, very large deployments may
+        want to consider setting to False.
+  svip:
+    type: string
+    description: |
+        Overrides default cluster SVIP with the one specified. This is required
+        or deployments that have implemented the use of VLANs for iSCSI
+        networks in their cloud.
+  template-account-name:
+    type: string
+    description: |
+        Account name on the SolidFire Cluster to use as owner of template/cache
+        volumes (created if does not exist).
+  volume-prefix:
+    type: string
+    description: |
+        Create SolidFire volumes with this prefix. Volume names are of the form
+        <sf_volume_prefix><cinder-volume-id>.
+        The default is to use a prefix of ‘UUID-‘.
